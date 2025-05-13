@@ -6,19 +6,39 @@ ORDERS_FILE="expanded_orders_data.csv"      # File with orders
 OUTPUT_FILE="assigned_orders.csv"           # Output file to save results
 DIST_SCRIPT="DistancesBitweenCities.py"  # Python script to calculate distance
 
-if [[ ! -f "$AGENTS_FILE" || ! -f "$ORDERS_FILE" || ! -f    "$PY_DIST_SCRIPT" ]]; then
+if [[ ! -f "$AGENTS_FILE" || ! -f "$ORDERS_FILE" || ! -f    "$DIST_SCRIPT" ]]; then
   echo "files are missing! Make sure all files are in the same folder."
   exit 1
 fi
 
-#working for the output  file
-echo "OrderID,OrderCity,OrderType,AssignedAgent,AgentCity,DistanceKM" > "$OUTPUT_FILE"
+#Work on the output  file
+echo "OrderID,FromCity,ToCity,ItemType,IsFragile,Size,AssignedAgent,AgentCity,DistanceKM" > "$OUTPUT_FILE"
 
-#lop
-tail -n +2 = skip the first line (headers)
-tail -n +2 "$ORDERS_FILE" | while IFS=',' read -r order_id order_city order_type
+#Lop over all orders 
+tail -n +2 "$ORDERS_FILE" | while IFS=',' read -r OrderID OrderCity ItemType
 do
-  echo "Processing order $order_id from $order_city (Type: $order_type)"
+  echo "Processing order $OrderID from $FromCity to $ToCity (Type: $ItemType  Fragile: $IsFragile  Size: $Size)"
+
+  #Loop over all agents to find the closest One 
+  tail -n +2 "$AGENTS_FILE" | while IFS=',' read -r AgentID Name City VehicleType CanCarryFragile
+  do
+    # Here we should call the Python script to calculate distance between cities
+    #__________________________________________
+    #__________________________________________
+    
+    #Skip if distance was not found or there was an error
+    echo "$distance" | grep -q "not found" && continue
+    
+    #Here we should save the assigned agents data
+    #__________________________________________
+  done
+
+  #Save the result to the output file 
+  #____________________________________________
+  #____________________________________________
+  
+done
+
 
 
 
