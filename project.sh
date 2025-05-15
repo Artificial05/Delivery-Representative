@@ -19,7 +19,7 @@ tail -n +2 "$ORDERS_FILE" | while IFS=',' read -r OrderID OrderCity ItemType
 do
   echo "Processing order $OrderID from $FromCity to $ToCity (Type: $ItemType  Fragile: $IsFragile  Size: $Size)"
 
-  #Loop over all agents to find the closest One 
+  #Loop over all agents to find the best One 
   tail -n +2 "$AGENTS_FILE" | while IFS=',' read -r AgentID Name City VehicleType CanCarryFragile
   do
     # Here we should call the Python script to calculate distance between cities
