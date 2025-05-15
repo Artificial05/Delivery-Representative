@@ -22,15 +22,14 @@ do
   #Loop over all agents to find the best One 
   tail -n +2 "$AGENTS_FILE" | while IFS=',' read -r AgentID Name City VehicleType CanCarryFragile
   do
-    # Here we should call the Python script to calculate distance between cities
-    #__________________________________________
-    #__________________________________________
+    # Here we call the Python script to calculate distance between cities
+    distance=$(python3 "$DIST_SCRIPT" "$City" "$OrderCity")
     
     #Skip if distance was not found or there was an error
     echo "$distance" | grep -q "not found" && continue
     
     #Here we should save the assigned agents data
-    #__________________________________________
+    #____________________________________________
   done
 
   #Save the result to the output file 
